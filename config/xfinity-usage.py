@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from os.path import exists
+import os
 import time
 import requests
 import datetime
@@ -16,28 +17,35 @@ import undetected_chromedriver as uc
 #wget https://chromedriver.storage.googleapis.com/106.0.5249.61/chromedriver_linux64.zip
 #sudo unzip chromedriver_linux64.zip -d /usr/local/bin
 #pip install selenium
-#pip install pygsheets
-#pip install pandas
 #pip install undetected_chromedriver
 #pip install requests
 
 ########## Manual Entries
-BaseRate = 0.5
-filePath = "/home/joe/Desktop/Usage.csv"
-configPath = "/home/matt/.config/google-chrome/Default"
-apiKey = "NFsjayXmu4Ls2VAwY95TK7ysRgftpGqw"
-serverAddr = "192.168.1.11"
-xUsername = "jwb1275@gmail.com"
-xPassword = "ameengin11"
+stEnabled = os.environ['st_ENABLED']
+BaseRate = os.environ['st_BASERATE']
+filePath = os.environ['xu_FILEPATH']
+configPath = os.environ['xu_CONFIGPATH']
+xUsername = os.environ['xu_USERNAME']
+xPassword = os.environ['xu_PASSWORD']
+if stEnabled:
+    apiKey = os.environ['st_APIKEY']
+    serverAddr = os.environ['st_SERVER']
+    serverAddr = serverAddr + ":" + os.environ['st_PORT']
+else:
+    currMaxSend = os.environ['xu_MAXSEND']
+    currMaxRecv = os.environ['xu_MAXRECV']
+    currInTotal = os.environ['xu_INTOTAL']
+    currOutTotal = os.environ['xu_OUTTOTAL']
+
 
 # Capture current Date Time
 runtime = datetime.datetime.now()
 
 # Gather Info from Syncthing
-r = requests.get("http://"+serverAddr+":8384/rest/config/options", headers={"X-API-Key":apiKey,"Content-Type":"application/json"})
+r = requests.get("http://"+serverAddr+"/rest/config/options", headers={"X-API-Key":apiKey,"Content-Type":"application/json"})
 currMaxSend = r.json()['maxSendKbps']
 currMaxRecv = r.json()['maxRecvKbps']
-r = requests.get("http://"+serverAddr+":8384/rest/system/connections", headers={"X-API-Key":apiKey,"Content-Type":"application/json"})
+r = requests.get("http://"+serverAddr+"/rest/system/connections", headers={"X-API-Key":apiKey,"Content-Type":"application/json"})
 currInTotal = r.json()['total']['inBytesTotal']/1024
 currOutTotal = r.json()['total']['outBytesTotal']/1024
 

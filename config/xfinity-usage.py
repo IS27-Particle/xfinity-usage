@@ -22,7 +22,7 @@ import undetected_chromedriver as uc
 
 ########## Manual Entries
 stEnabled = os.environ['st_ENABLED']
-BaseRate = os.environ['st_BASERATE']
+BaseRate = os.environ['xu_BASERATE']
 filePath = os.environ['xu_FILEPATH']
 configPath = os.environ['xu_CONFIGPATH']
 xUsername = os.environ['xu_USERNAME']

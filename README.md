@@ -3,7 +3,7 @@ This is a Docker application script which uses selenium to web scrape the xFinit
 
 ## Use Cases
 ### How to currently run it
-    git clone IS27-Particle27/xfinity-usage
+    git clone IS27-Particle27/xfinity-usage /home/$USERNAME/xfinity-usage
     docker run is27/xfinity-usage --env-file .env -v /home/$USERNAME/xfinity-usage/config:/config
 ### Output to CSV
 ### Syncthing Integration (In Progress)

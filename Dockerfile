@@ -15,6 +15,7 @@ ENV xu_MAXRECV=0
 ENV xu_INTOTAL=0
 ENV xu_OUTTOTAL=0
 
+COPY config /
 COPY runner.sh /config/
 
 RUN apt-get update && \

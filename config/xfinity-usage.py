@@ -23,6 +23,7 @@ import undetected_chromedriver as uc
 ########## Manual Entries
 stEnabled = os.environ['st_ENABLED']
 BaseRate = os.environ['xu_BASERATE']
+header = ",BaseRate,"+str(BaseRate)
 filePath = os.environ['xu_FILEPATH']
 configPath = os.environ['xu_CONFIGPATH']
 xUsername = os.environ['xu_USERNAME']
@@ -36,6 +37,8 @@ else:
     currMaxRecv = os.environ['xu_MAXRECV']
     currInTotal = os.environ['xu_INTOTAL']
     currOutTotal = os.environ['xu_OUTTOTAL']
+    header = ",Current Max In+Out (KBps),Current Actual In+Out (KBps)"+header
+    output = ","+str(currMaxRecv+currMaxSend)+","+str(currInTotal+currOutTotal)
 
 
 # Capture current Date Time
@@ -107,7 +110,7 @@ calculatedRate = ((total - usage)/hoursLeft * rateFactor)/60/60*1024*1024
 
 # Write to CSV
 f = open(filePath, "a")
-if exists(filePath):
-    f.write("Date,Time,ISP Usage (GB),Hours in Month,Total Data Budget,Data Remainging,Hour of month,hour/hours,Usage/Budget,ratio,Hours Left,RateFactor,Calculated (KBps),Current Max In+Out (KBps),Current Actual In+Out (KBps),BaseRate,"+str(BaseRate))
-f.write(date+","+time+","+str(usage)+","+str(hours)+","+str(total)+","+str(data_remaining)+","+str(hour)+","+str(hRatio)+","+str(uRatio)+","+str(hoursLeft)+","+str(rateFactor)+","+str(calculatedRate)+","+str(currMaxRecv+currMaxSend)+","+str(currInTotal+currOutTotal))
+if not exists(filePath):
+    f.write("Date,Time,ISP Usage (GB),Hours in Month,Total Data Budget,Data Remainging,Hour of month,hour/hours,Usage/Budget,ratio,Hours Left,RateFactor,Calculated (KBps)"+header)
+f.write(date+","+time+","+str(usage)+","+str(hours)+","+str(total)+","+str(data_remaining)+","+str(hour)+","+str(hRatio)+","+str(uRatio)+","+str(hoursLeft)+","+str(rateFactor)+","+str(calculatedRate)+output)
 f.close()

@@ -23,6 +23,11 @@ This is a Docker application script which uses selenium to web scrape the xFinit
         xFinity username
     xu_PASSWORD=""
         xFinity Password
+    xu_MANUAL=TRUE
+        Manual Entry for Max Send/Recv and Actual In/Out
+    st_ENABLED=FALSE
+        Enable Syncthing pull for Max Send/Recv and Actual In/Out
+        Takes prescedence over xu_MANUAL
     st_APIKEY=""
         Syncthing API Key
     st_SERVER="127.0.0.1"

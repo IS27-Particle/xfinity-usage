@@ -22,6 +22,7 @@ import undetected_chromedriver as uc
 
 ########## Manual Entries
 stEnabled = os.environ['st_ENABLED']
+stManual = os.environ['st_MANUAL']
 BaseRate = os.environ['xu_BASERATE']
 header = ",BaseRate,"+str(BaseRate)
 filePath = os.environ['xu_FILEPATH']
@@ -32,7 +33,7 @@ if stEnabled:
     apiKey = os.environ['st_APIKEY']
     serverAddr = os.environ['st_SERVER']
     serverAddr = serverAddr + ":" + os.environ['st_PORT']
-else:
+elif stManual:
     currMaxSend = os.environ['xu_MAXSEND']
     currMaxRecv = os.environ['xu_MAXRECV']
     currInTotal = os.environ['xu_INTOTAL']

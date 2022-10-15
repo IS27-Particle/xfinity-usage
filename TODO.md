@@ -1,4 +1,4 @@
 Verification Code Handling
-    Change it from Terminal Entry
+    Should it send an email? Or is the Verification code request enough?
 Enable Syncthing Patch to modify the max send/recv
 Integrate MQTT

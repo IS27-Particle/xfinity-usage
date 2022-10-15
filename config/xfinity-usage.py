@@ -73,12 +73,15 @@ verification = driver.find_element(By.ID, "verificationCode")
 if verification.size != 0: # Verification CODE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Will need to get and add cookies
     remember = driver.find_element(By.NAME, "remember_device")
     remember.click()
-    while datetime.datetime.now().minute <= 55:
+    code = ""
+    while datetime.datetime.now().minute <= 55 or code == "":
         if exists("/config/verification.txt"):
             f = open("/config/verification.txt",r)
             for line in f.readlines():
                 if line != "":
                     code = line
+            f.close()
+            os.remove("/config/verification.txt")
     if datetime.datetime.now().minute > 55:
         driver.close()
         exit

@@ -4,7 +4,12 @@ This is a Docker application script which uses selenium to web scrape the xFinit
 ## Use Cases
 ### How to currently run it
     git clone IS27-Particle27/xfinity-usage /home/$USERNAME/xfinity-usage
-    docker run is27/xfinity-usage --env-file .env -v /home/$USERNAME/xfinity-usage/config:/config
+    docker run -d is27/xfinity-usage --env-file .env -v /home/$USERNAME/xfinity-usage/config:/config
+#### Verification Code handling
+In order to inject the most recent verification code run the following
+    docker exec <containernameorid> /config/verify.sh
+Ensure the script is set to executable
+    docker exec <containernameorid> chmod +x /config/verify.sh
 ### Output to CSV
 ### Syncthing Integration (In Progress)
 ### MQTT Database

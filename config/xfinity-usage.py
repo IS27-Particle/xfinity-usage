@@ -73,7 +73,16 @@ verification = driver.find_element(By.ID, "verificationCode")
 if verification.size != 0: # Verification CODE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Will need to get and add cookies
     remember = driver.find_element(By.NAME, "remember_device")
     remember.click()
-    code = input("Enter the verification code: ")
+    while datetime.datetime.now().minute <= 55:
+        if exists("/config/verification.txt"):
+            f = open("/config/verification.txt",r)
+            for line in f.readlines():
+                if line != "":
+                    code = line
+    if datetime.datetime.now().minute > 55:
+        driver.close()
+        exit
+    #code = input("Enter the verification code: ")
     verification.send_keys(code)
     verification.submit()
     time.sleep(10)
@@ -84,7 +93,7 @@ usage = int(driver.find_element(By.XPATH, "/html/body/div[1]/section/main/div[2]
 driver.get("https://customer.xfinity.com/#/devices#usage")
 time.sleep(15)
 total = int(driver.find_element(By.XPATH, "/html/body/div[1]/div/div/main/div/div/section[2]/div/div/div[2]/div[2]/div[1]/div/div/div/p/span/b[2]").text.removesuffix("GB"))
-
+driver.close()
 
 # Date and Time Strings
 date = str(runtime.month) + "/" + str(runtime.day) + "/" + str(runtime.year)
@@ -115,3 +124,4 @@ if not exists(filePath):
     f.write("Date,Time,ISP Usage (GB),Hours in Month,Total Data Budget,Data Remainging,Hour of month,hour/hours,Usage/Budget,ratio,Hours Left,RateFactor,Calculated (KBps)"+header)
 f.write(date+","+time+","+str(usage)+","+str(hours)+","+str(total)+","+str(data_remaining)+","+str(hour)+","+str(hRatio)+","+str(uRatio)+","+str(hoursLeft)+","+str(rateFactor)+","+str(calculatedRate)+output)
 f.close()
+
